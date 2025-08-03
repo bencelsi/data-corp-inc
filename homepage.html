@@ -59,6 +59,7 @@
   <div class="tab">
   <button class="tablinks" onclick="openTab(event, 'about')">About</button>
   <button class="tablinks" onclick="openTab(event, 'work')">Work Portal</button>
+  <!-- <button class="tablinks" onclick="openTab(event, 'messages')">Messages</button> -->
   <button class="tablinks" onclick="openTab(event, 'org')">Org Chart</button>
   <button class="tablinks" onclick="openTab(event, 'profile')">Profile</button>
   <button class="tablinks" onclick="openTab(event, 'settings')">Settings</button>
@@ -67,7 +68,7 @@
 <div id="about" class="tabcontent">
     <h3>About Data Corp Inc.</h3>
     <image src="crowd.gif"></image>
-    <p>Data Corp Inc. was formed in 1999, from a simple idea: make the world a better place by connecting the right people to the right data.
+    <p>Data Corp Inc. was formed in 1991, from a simple idea: make the world a better place by connecting the right people to the right data.
     <p>Data Corp Inc. cares deeply about people, and about data.
     <p>Data Corp Inc. has created several industry-leading products in the data sector:<br><br>
         • Data Indexing Personal Device™ (DIPD™)<br>
@@ -85,21 +86,23 @@
   <!-- Please enter the following data: -->
 </div>
 
+<div id="messages" class="tabcontent">
+  <h3>Messages</h3>
+  <button><a href = 'messages.html'>Click Here To View Messages</a></button>
+
+  <!-- Please enter the following data: -->
+</div>
+
 
 
 <!-- ORG -->
 <div id="org" class="tabcontent">
   <h3>Org Chart</h3><br>
-  <b>CEO</b><br>
-  <img src="down2.gif"><br>
-  Boss's Boss's Boss's Boss<br>
-  <img src="down2.gif"><br>
-  Boss's Boss's Boss<br>
-  <img src="down2.gif"><br>
-  Boss's Boss<br>
-  <img src="down2.gif"><br>
-  Boss<br>
-  <img src="down2.gif"><br>
+  <b>CEO</b><br><img src="down2.gif"><br>
+  Boss's Boss's Boss's Boss<br><img src="down2.gif"><br>
+  Boss's Boss's Boss<br><img src="down2.gif"><br>
+  Boss's Boss<br><img src="down2.gif"><br>
+  Boss<br><img src="down2.gif"><br>
   You (Employee #738198!)<br>
 </div>
 
@@ -147,5 +150,7 @@ function openTab(evt, cityName) {
   // Show the current tab, and add an "active" class to the button that opened the tab
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
-} 
+}
+
+console.log(localStorage.getItem('A'))
 </script>
