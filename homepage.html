@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<head>
+<title>Data Corp Inc.</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style type='text/css'>
+    body {
+        font-family: "Lucida Console", monospace;
+        background-color: aquamarine;
+        text-align: center;
+    }
+    h1 { text-align: center; font-size: 50px; 
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial sans-serif}
+        /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #6d6d6d;
+        background-color: #bababa;
+        margin: auto;
+    }
+    a {
+        text-decoration: none;
+    }
+
+    /* Style the buttons that are used to open the tab content */
+    .tab button {
+        background-color: inherit;
+        /* float: left; */
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active { background-color: #7eff42; }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border-top: none;
+    }
+</style>
+</head>
+<body>
+    <h1><img src="earth.gif"> Data Corp Inc. <img src="earth.gif"></h1>
+    <h2>Welcome Employee #738198!</h2>
+    <!-- <img src="logo.gif"> -->
+    <!-- Work Portal -->
+    <!-- 
+    -->
+    <!-- Tab content -->
+  <div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'about')">About</button>
+  <button class="tablinks" onclick="openTab(event, 'work')">Work Portal</button>
+  <button class="tablinks" onclick="openTab(event, 'org')">Org Chart</button>
+  <button class="tablinks" onclick="openTab(event, 'profile')">Profile</button>
+  <button class="tablinks" onclick="openTab(event, 'settings')">Settings</button>
+  <button class="tablinks" onclick="alert('YOU DO NOT HAVE ACCESS TO THE CORPORATE SECRETS TAB. DO NOT CLICK THIS AGAIN.')">Corporate Secrets</button>
+</div>
+<div id="about" class="tabcontent">
+    <h3>About Data Corp Inc.</h3>
+    <image src="crowd.gif"></image>
+    <p>Data Corp Inc. was formed in 1999, from a simple idea: make the world a better place by connecting the right people to the right data.
+    <p>Data Corp Inc. cares deeply about people, and about data.
+    <p>Data Corp Inc. has created several industry-leading products in the data sector:<br><br>
+        • Data Indexing Personal Device™ (DIPD™)<br>
+        • Data Undulating Data Directory (DUDD™)<br>
+        • Data Extrapolation Interface for B2B Use Cases (DEIB2BUC™)<br>
+        • Human-Centric Data Platform for Unordered Data (HCDPUD™)<br>
+        • Non-Deterministic Data Event (NDDE™)<br>
+    </p>
+</div>
+
+<div id="work" class="tabcontent">
+  <h3>Work Portal</h3>
+  <button><a href = 'work.html'>Click Here To Enter The Work Portal</a></button>
+
+  <!-- Please enter the following data: -->
+</div>
+
+
+
+<!-- ORG -->
+<div id="org" class="tabcontent">
+  <h3>Org Chart</h3><br>
+  <b>CEO</b><br>
+  <img src="down2.gif"><br>
+  Boss's Boss's Boss's Boss<br>
+  <img src="down2.gif"><br>
+  Boss's Boss's Boss<br>
+  <img src="down2.gif"><br>
+  Boss's Boss<br>
+  <img src="down2.gif"><br>
+  Boss<br>
+  <img src="down2.gif"><br>
+  You (Employee #738198!)<br>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="tabcontent">
+  <h3>Profile</h3>
+  You are: (Employee #738198)<br><br>
+  Position: Data Entry<br><br>
+  <!-- You have earned: 0 DataPoints™<br><br> -->
+  <button><a href='index.html'>Click Here to Sign Out</a></button>
+</div>
+
+<!-- SETTINGS -->
+<div id="settings" class="tabcontent">
+    <h3>Settings</h3>
+    <label class="switch">Dark Mode:
+    <input type="checkbox" id="darkMode" onclick='darkMode(this);'>
+    <!-- <span class="slider round"></span> -->
+    </label>
+</div>
+
+</body>
+<script>
+function darkMode(button) {
+    if (button.checked) {
+        document.body.style.backgroundColor = 'darkblue';
+        document.body.style.color = 'white';
+    } else {
+        document.body.style.backgroundColor = 'aquamarine';
+        document.body.style.color = 'black';
+    }
+}
+
+function openTab(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(" active", ""); }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+} 
+</script>

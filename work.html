@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<head>
+<title>Data Corp Inc. Sign-In Portal</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<style type='text/css'>
+    a {
+        text-decoration: none;
+    }
+    body {
+        background-color: rgb(0, 145, 255);
+        text-align: center;
+        font-family: "Lucida Console", monospace;
+        text-align: center;
+    }
+</style>
+</head>
+<body>
+    <h1><img src="earth.gif"> Data Entry Station <img src="earth.gif"></h1>
+    <p id="message">Please Enter the following data in the data entry field:</p>
+    <p id="data"></p>
+    <input type="text" id="entry" name="name"/>
+    <button id="enter">Enter</button>
+    <br><br><br><br>
+    <button><a href="homepage.html">Click here to Exit the Data Entry Station</a></button>
+    <div class="tab">
+</div>
+
+</body>
+<script>
+
+    var message = get('message')
+    var pasted = false
+    var data = get('data')
+
+    data.innerHTML = makeData()
+    console.log(makeData())
+    get('entry').onpaste = () => {
+        pasted = true
+    }
+
+    get('enter').onclick = () => {
+        if (pasted) {
+            alert('THIS IS DATA HAS BEEN PASTED. THE DATA IS NOW UNUSABLE. DO NOT DO THIS AGAIN.')
+            pasted = false
+            data.innerHTML = makeData()
+        } else if (entry.value == data.innerHTML) {
+            alert('DATA ENTERED SUCCESSFULLY. THANK YOU!')
+            data.innerHTML = makeData()
+        } else {
+            alert('THIS IS DATA IS INCORRECT. DO NOT DO THIS AGAIN.')
+        }
+        entry.value = ''
+    }
+
+    function say(str) {
+        message.innerHTML = str
+    } 
+
+
+    function get(id) {
+        return document.getElementById(id)
+    }
+
+    function makeData(length) {
+        var result           = '';
+        var characters       = '0123456789';
+        for ( var i = 0; i < 10; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * 10));
+        }
+        return result
+    }
+</script>
