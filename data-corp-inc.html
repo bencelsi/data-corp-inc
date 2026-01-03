@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<head>
+<title>Data Corp Inc.</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="shared/shared.css">
+
+<!-- NOTE: this game is very easily hackable, and doing so defeats the purpose -->
+
+<style type='text/css'>
+    body {
+        font-family: "Lucida Console", monospace;
+        background-color: aquamarine;
+        text-align: center;
+    }
+
+    h1 { text-align: center; font-size: 50px; 
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial sans-serif }
+    
+    .tab {
+        overflow: hidden;
+        border: 1px solid #6d6d6d;
+        background-color: #bababa;
+        margin: auto;
+    }
+
+    a { 
+        text-decoration: none;
+    }
+
+    .bordered {
+        border: solid 2px darkblue;
+    }
+    /* Style the buttons that are used to open the tab content */
+    .tab button {
+        background-color: inherit;
+        /* float: left; */
+        border: none;
+        outline: none;
+        padding: 14px 16px;
+        transition: 0.3s;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active { background-color: #7eff42; }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border-top: none;
+    }
+.profile {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: inline-block;
+}
+
+#profileBtn {
+  width: 150px; /* you can set this to auto, or a fixed size */
+}
+
+#profileMenu {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: white;
+  border: 1px solid black;
+  text-align: left;
+  width: 100%; /* match width of .profile (button width) */
+  box-sizing: border-box;
+}
+
+
+    
+</style>
+</head>
+<body>
+    <h1><img src="gif/earth.gif"><b> Data Corp Inc. </b><img src="gif/earth.gif"></h1>
+    <!-- Add this near the top of <body>, right after <h1> -->
+    <div class="profile">
+    <button id="profileBtn">Employee #738198 ⌄</button>
+    <div id="profileMenu">
+        <!-- <a href="#">My Profile</a><br> -->
+        <!-- <a href="#" onclick="openTab(event, 'settings')">Settings</a><br> -->
+        <a href="index.html">Log Out</a>
+    </div>
+    </div>
+    <h2>Welcome Employee #738198!</h2>
+    <!-- <img src="logo.gif"> -->
+    <!-- Work Portal -->
+    <!-- 
+    -->
+    <!-- Tab content -->
+  <div class="tab">
+  <button class="tablinks" onclick="openTab(event, 'about')">About</button>
+  <button class="tablinks" onclick="openTab(event, 'work')">Data Entry Station</button>
+  <button class="tablinks" onclick="openTab(event, 'tickets')">Tickets</button>
+  <button class="tablinks" onclick="openTab(event, 'documents')">Documents</button>
+  <button class="tablinks" onclick="openTab(event, 'messages')">Messages</button>
+  
+  <!-- <button class="tablinks" onclick="openTab(event, 'messages')">Messages</button> -->
+  <button class="tablinks" onclick="openTab(event, 'org')">Org Chart</button>
+  <button class="tablinks" onclick="openTab(event, 'settings')">Settings</button>
+  <button class="tablinks" onclick="
+    playSound('alarm1.mp3');
+    alert('YOU DO NOT HAVE ACCESS TO THE CORPORATE SECRETS TAB. DO NOT CLICK THIS AGAIN.')">Corporate Secrets</button>
+</div>
+<div id="about" class="tabcontent">
+    <h2>About Data Corp Inc.</h2>
+    <image src="gif/crowd.gif"></image>
+    <p>Data Corp Inc. was founded on a simple idea: connect the right people to the right data.</p>
+    <p>Why? It's simple: we care deeply about people, and about data.</p>
+    
+    <p>DCI has created several industry-leading products in the data sector:<br><br>
+        • Data Extraction Personal Device™ (DIPD™)<br>
+        • Deep Undulating Data Directory (DUDD™)<br>
+        • Human-Adjacent Unordered Data Pool (HAUDP™)<br>
+        • Data Extrapolation Interface for B2B Use Cases (DEIB2BUC™)<br>
+        • Non-Deterministic Data Event (NDDE™)<br>
+    </p>
+</div>
+
+<div id="work" class="tabcontent">
+  <h2>Work Portal</h2>
+  <iframe id="workFrame" height="600px" width="700px" src="work.html"></iframe>
+</div>
+
+
+<div id="tickets" class="tabcontent">
+  <h2>Tickets</h2>
+  <br>
+  (You have no tickets)
+  <!-- <iframe id="ticketsFrame" height="800px" width="700px" src="ticket.html"> </iframe> -->
+  
+</div>
+
+
+
+<div id="messages" class="tabcontent">
+  <h2>Messages</h2>
+  <iframe id="messagesFrame" height="800px" width="700px" src="messages.html">
+  </iframe>
+  <!-- Please enter the following data: -->
+</div>
+
+
+<!-- ORG -->
+<div id="org" class="tabcontent">
+  <h2>Org Chart</h2><br>
+  <b>CEO</b><br><img src="gif/down2.gif"><br>
+  Boss' Boss' Boss' Boss<br><img src="gif/down2.gif"><br>
+  Boss' Boss' Boss<br><img src="gif/down2.gif"><br>
+  Boss' Boss<br><img src="gif/down2.gif"><br>
+  Boss<br><img src="gif/down2.gif"><br>
+  You (Employee #738198!)<br>
+</div>
+
+
+
+<!-- DOCUMENTS -->
+<div id="documents" class="tabcontent">
+    <h2>Documents</h2><br>
+    (You have no documents)
+</div>
+
+<!-- SETTINGS -->
+<div id="settings" class="tabcontent">
+    <h2>Settings</h2>
+    <label class="switch">Dark Mode: <input type="checkbox" id="darkMode" onclick='darkMode(this);'><br>
+    <!-- <label class="switch">Productivity Radio: <input type="checkbox" id="radio"> -->
+    <br>
+    <div class="border">
+        <h4>Profile</h4>
+        You are: (Employee #738198)<br><br>
+        Position: Data Entry<br><br>
+    </div>
+    <br>
+    
+    <!-- <span class="slider round"></span> -->
+    </label>
+</div>
+
+</body>
+<script src='shared/shared.js'></script>
+<script>
+function darkMode(button) {
+    if (button.checked) {
+        document.body.style.backgroundColor = 'darkblue';
+        document.body.style.color = 'white';
+    } else {
+        document.body.style.backgroundColor = 'aquamarine';
+        document.body.style.color = 'black';
+    }
+}
+
+function openTab(evt, cityName) {
+    playSound('click1')
+    
+    // Declare all variables
+    var i, tabcontent, tablinks;
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) { tablinks[i].className = tablinks[i].className.replace(" active", ""); }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const btn = document.getElementById("profileBtn");
+  const menu = document.getElementById("profileMenu");
+
+  btn.addEventListener("click", () => {
+    menu.style.display = menu.style.display === "block" ? "none" : "block";
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!btn.contains(e.target) && !menu.contains(e.target)) {
+      menu.style.display = "none";
+    }
+  });
+});
+
+
+console.log(localStorage.getItem('A'))
+</script>

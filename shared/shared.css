@@ -1,0 +1,22 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    width: 100%;
+    height: 100%;
+}
+
+* {
+    cursor: url(../cursor/ptr.cur), pointer;
+}
+
+button :enabled {
+    cursor: url(../cursor/hand-point.cur), auto;   
+    border-radius: 3px;
+    border: solid darkblue 2px;
+    font-size: 20px;
+}
+
+a img {
+    cursor: url(../cursor/hand-point.cur), auto;  
+}

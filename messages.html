@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<head>
+<title>Data Corp Inc. Sign-In Portal</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
+<link rel="stylesheet" href="shared/shared.css">
+<style type='text/css'>
+    
+    body {
+        background-color: rgb(0, 145, 255);
+        text-align: center;
+        font-family: "Lucida Console", monospace;
+        text-align: center;
+    }
+
+    a { text-decoration: none; }
+
+    .messagesPage {
+        margin: auto;
+        background-color: white;
+        width: 650px;
+        height: 600px;
+    }
+
+    #userBar {
+        float: left;
+        width: fit-content;
+    }
+
+    .user {
+        border: 2px solid black;
+        border-radius: 5px;
+        padding: 20px;
+        background-color: lightgray; 
+    }
+
+    #selectedUser {
+        background-color: white; 
+        border-right: none;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        font-style: bold;
+    }
+
+    .messageBar {
+        float: right;
+        width: 500px;
+        background-color: white;
+    }
+
+    .message {
+        width: 80%;
+        padding: 15px;
+        border: solid black 2px;
+        margin: 10px;
+        background-color: white;
+    }
+
+    #input {
+        width: 400px;
+    }
+
+    .self {
+        background-color: lightblue;
+        float: right;
+    }
+
+    .other {
+        background-color: lightgreen;
+        float: left;
+    }
+
+    .reply {
+        width: 400px;
+        position: absolute;
+        bottom: 0;
+    }
+
+    input {
+        width: 1000px
+    }
+</style>
+</head>
+<body>
+    <br><br><br><br>
+    <div class="tab">
+    
+    <div class="messagesPage">
+        <div id="userBar"></div>
+        <div class="messageBar">
+            <h2 id="name"></h2>
+            <div id = 'messages'>
+            </div>
+            <br>
+            <div id="reply">
+                <input type="text" id="input" name="name" maxlength="0"/>
+                <button id="send">Send</button>
+            </div>
+        </div>
+
+    </div>
+    <br>
+    
+</div>
+</body>
+<script src='shared/shared.js'></script>
+<script>
+    // TODO: make databot texting work
+    // tabs at top
+    // clear text box on user switch (ideally, save it)
+    const dataBotResponses = [
+        "Sorry, I couldn’t understand that. Could you try phrasing it in a different way?",
+        "I really appreciate you telling me that. However, I’m having trouble understanding what you’re saying. Could you try phrasing it in a different way?",
+        "Please feel free to ask me anything!",
+        "Interesting. Could you try phrasing that in another way?",
+        "Sorry! I’m just a bot, sometimes I get confused. Could you try rephrasing that?",
+        "I’m here to listen.",
+        "I totally get that.",
+        "Sorry, I’m not sure about that. Maybe try just saying the same thing again, but using slightly different words?",
+        "Hey! Do me a favor: Say exactly what you just said again, but in a slightly different way. I don’t quite understand what you mean!"
+    ]
+
+    const NAME = get('name')
+    const MESSAGES_DIV = get('messages');
+    const SEND_BUTTON = get('send')
+    const USER_BAR = get('userBar')
+    var data = get('data')
+    const INPUT = get('input')
+    var unsure = "... I can't think of anything to say"
+
+    var currentUser = 0
+    var selectedUser = 1
+
+
+    let messageMap = new Map()
+    messageMap.set('0.1', [
+        { from: 1, to: 0, text: 'Welcome to Data Corp Inc! Please get to work.' }])
+    messageMap.set('0.2', [
+        { from: 2, to: 0, text: "Hi! I'm DataBot. I can help out with any questions you might have." }])
+    
+    let futureMessageMap = new Map()
+    futureMessageMap.set(1, "Sure thing, boss!")
+
+    var nextText = futureMessageMap.get(selectedUser)
+
+    SEND_BUTTON.disabled = true
+
+    //var text = "It's hard to say. I can see myself typing these words, but it feels like someone else thought of them."
+    INPUT.addEventListener("keypress", () => {
+        if (selectedUser == 1) INPUT.value += nextText.charAt(INPUT.value.length)
+        // todo - if key is same as last one, don't add the character?
+    })
+    INPUT.addEventListener("keydown", () => {
+        if (selectedUser == 1) SEND_BUTTON.disabled = INPUT.value != nextText
+        else SEND_BUTTON.disabled = INPUT.value.length == 0
+    })
+    INPUT.addEventListener("keyup", () => {
+        if (selectedUser == 1) SEND_BUTTON.disabled = INPUT.value != nextText
+        else SEND_BUTTON.disabled = INPUT.value.length == 0
+    })
+    
+    var userMap = {
+        0: 'You',
+        1: 'Boss',
+        2: 'DataBot'
+    }
+    renderMessages(0, 1)
+
+    SEND_BUTTON.onclick = () => {
+        playSound('click1')
+        sendMessage(currentUser, selectedUser, input.value)
+        renderMessages()
+        input.value = ''
+    }
+
+    let userButtons = []
+    renderUsers()
+    function renderUsers() {
+        messageMap.keys
+        for (let key of messageMap.keys()) {
+            let [u1, u2] = parseUserPair(key)
+            if (u1 != currentUser && u2 != currentUser) continue
+            let otherUser = (u1 == currentUser ? u2 : u1)
+            let otherName = userMap[otherUser]
+            
+            var div = document.createElement('div')
+            div.classList.add('user')
+            div.innerHTML = otherName
+            userButtons[otherUser] = div
+            div.onclick = () => { selectUser(otherUser) }
+            if (otherUser == selectedUser) div.id = "selectedUser"
+            USER_BAR.appendChild(div)
+        }
+    }
+
+    function selectUser(user) {
+        if (selectedUser != user) INPUT.value = ""
+        selectedUser = user
+        if (user == 1) {
+            INPUT.setAttribute("maxLength", 0)
+        } else if (user == 2) {
+            INPUT.setAttribute("maxLength", 100)
+        }
+
+        nextText = futureMessageMap.get(user)
+        if (nextText == null) nextText = "Hmm, I can't think of anything to say."
+        renderMessages()
+        for (let i = 0; i < userButtons.length; i++) {
+            if (userButtons[i] == null) continue
+            if (i == user) userButtons[i].id = "selectedUser"
+            else userButtons[i].id = ""
+        }
+    }
+
+    function renderMessages() {
+        MESSAGES_DIV.innerHTML = ''
+
+        var userPair = getUserPair(currentUser, selectedUser)
+        var messages = messageMap.get(userPair)
+        if (messages == null) return
+        console.log(messages)
+
+        NAME.innerHTML = userMap[selectedUser]
+
+        for (let message of messages) {
+            if (message.unsent) continue
+            var message_div = document.createElement('div')
+            message_div.classList.add('message')
+            if (message.from == currentUser) message_div.classList.add('self')
+            else message_div.classList.add('other')
+            console.log(message)
+            message_div.innerHTML = message.text
+            MESSAGES_DIV.appendChild(message_div)
+        }
+    }
+
+
+    // when populating message field, search 
+
+    //sendMessage(0, 1, 'hi!')
+    
+
+
+    function sendMessage(from, to, text, unsent = false) {
+
+        var pair = getUserPair(from, to)
+        messages = messageMap.get(pair)
+
+        if (to == 2) {
+            messages.push({'from': from, 'to': to, 'text': text, 'unsent': unsent})
+            sendMessage(2, 0, dataBotResponses[Math.floor(Math.random() * dataBotResponses.length)])
+            return
+        }
+        //if (selectedUser != 2) SEND_BUTTON.disabled = true
+        playSound('pop')
+        futureMessageMap.set(selectedUser, null)
+        nextText = "Hmm, I can't think of anything to say"
+
+        messages = messageMap.get(pair)
+        if (messages == null) {
+            messages = []
+            messageMap.set(pair, messages)
+        }
+        messages.push({'from': from, 'to': to, 'text': text, 'unsent': unsent})
+
+    }
+
+    
+    class Message {
+        to
+        from
+        text
+        present
+        read
+    }
+
+    // Helpers
+    function getUserPair(user1, user2) {
+        var sorted = [user1, user2].sort()
+        return sorted[0] + '.' + sorted[1]
+    }
+
+    function parseUserPair(userPair) {
+        let split = userPair.split('.')
+        return [parseInt(split[0]), parseInt(split[1])]
+    }
+
+    function get(id) { return document.getElementById(id) }
+
+</script>
